@@ -40,6 +40,8 @@ elif [ "$COMMAND" = "root-shell" ]; then
     $DOCKER_COMPOSE_EXEC_ROOT_CMD sh
 elif [ "$COMMAND" = "composer" ]; then
     $DOCKER_COMPOSE_EXEC_ROOT_CMD composer $@
+elif [ "$COMMAND" = "cli" ]; then
+    $DOCKER_COMPOSE_EXEC_ROOT_CMD php -a
 elif [ "$COMMAND" = "exec" ]; then
     $DOCKER_COMPOSE_CMD exec $@
 else
@@ -55,6 +57,7 @@ else
     echo "│ - shell                             │"
     echo "│ - root-shell                        │"
     echo "│ - composer                          │"
+    echo "│ - cli                               │"
     echo "│ - exec                              │"
     echo "└─────────────────────────────────────┘"
 fi
