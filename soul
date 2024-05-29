@@ -21,6 +21,15 @@ DOCKER_COMPOSE_EXEC_CURRENTUSER_CMD="$DOCKER_COMPOSE_CMD exec -it -u $(whoami) $
 
 BASH_CMD="sh ./soul"
 
+if [ ! -f ./.env ]; then
+    echo "NOTE: .env file is not found."
+    sleep 1
+    echo "- Creating new .env file."
+    cp ./.env.example ./.env
+    sleep 1
+    echo "- New .env file created."
+fi
+
 if [ "$COMMAND" = "up" ]; then
     $DOCKER_COMPOSE_CMD up -d
 elif [ "$COMMAND" = "down" ]; then
