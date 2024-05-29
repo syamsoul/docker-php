@@ -1,5 +1,5 @@
 <?php
-    $app_name = "PHP Playground";
+    $app_name = "Docker PHP by Syamsoul";
 ?>
 
 <html>
