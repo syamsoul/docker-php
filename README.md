@@ -24,6 +24,8 @@ Yes, it only require Docker to run PHP web and CLI.
 
 ### Basic Usage
 
+⚠️ First, please make sure NO other app use 80 port, otherwise, it will not works. (e.g: disable WampServer or disable apache/nginx)
+
 1. `git clone https://github.com/syamsoul/docker-php.git <YOUR_APP_FOLDER_NAME>`
 1. `cd <YOUR_APP_FOLDER_NAME>`
 1. `sh soul up`
