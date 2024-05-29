@@ -1,0 +1,30 @@
+services:
+  www:
+    image: serversideup/php:8.3-fpm-nginx-alpine
+    expose:
+      - 8080
+    labels:
+      - traefik.http.routers.php.rule=Host(`php.localhost`)
+      - traefik.http.routers.php.entrypoints=web
+      - traefik.http.routers.php.service=php-service
+      - traefik.http.services.php-service.loadbalancer.server.port=8080
+    volumes:
+      - ../src:/var/www/html
+    networks:
+      - main-net
+  reverse-proxy:
+    image: traefik:v3.0.0
+    ports:
+      - "80:80"
+      # - "8080:8080"
+    environment:
+      - TRAEFIK_PROVIDERS_DOCKER=true
+      # - TRAEFIK_API_INSECURE=true
+      - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - main-net
+networks:
+  main-net:
+    driver: bridge

@@ -1,0 +1,60 @@
+#!/bin/bash
+
+# NOTE: it is recommended to add `alias soul='[ -f soul ] && sh soul || sh ./docker/soul'` to ~/.zshrc or ~/.bashrc or /etc/bash.bashrc
+
+set -e
+
+COMMAND=$1
+if [ $# -gt 0 ]; then
+    shift
+fi
+
+APP_SERVICE_NAME=www
+
+DOCKER_COMPOSE_FILE_PATH=./docker/docker-compose.yml
+
+DOCKER_COMPOSE_CMD="sudo docker compose -f $DOCKER_COMPOSE_FILE_PATH"
+DOCKER_COMPOSE_EXEC_CMD="$DOCKER_COMPOSE_CMD exec -it $APP_SERVICE_NAME"
+DOCKER_COMPOSE_EXEC_ROOT_CMD="$DOCKER_COMPOSE_CMD exec -it -u root $APP_SERVICE_NAME"
+DOCKER_COMPOSE_EXEC_CURRENTUSER_CMD="$DOCKER_COMPOSE_CMD exec -it -u $(whoami) $APP_SERVICE_NAME"
+
+BASH_CMD="sh ./soul"
+
+if [ "$COMMAND" = "up" ]; then
+    $DOCKER_COMPOSE_CMD up -d
+elif [ "$COMMAND" = "down" ]; then
+    $DOCKER_COMPOSE_CMD down
+elif [ "$COMMAND" = "restart" ]; then
+    SERVICE=$1
+
+    if [ -z "$SERVICE" ]; then
+        $BASH_CMD down
+        $BASH_CMD up
+    else
+        $DOCKER_COMPOSE_CMD down $SERVICE
+        $DOCKER_COMPOSE_CMD up -d $SERVICE
+    fi
+elif [ "$COMMAND" = "shell" ]; then
+    $DOCKER_COMPOSE_EXEC_CMD sh
+elif [ "$COMMAND" = "root-shell" ]; then
+    $DOCKER_COMPOSE_EXEC_ROOT_CMD sh
+elif [ "$COMMAND" = "composer" ]; then
+    $DOCKER_COMPOSE_EXEC_ROOT_CMD composer $@
+elif [ "$COMMAND" = "exec" ]; then
+    $DOCKER_COMPOSE_CMD exec $@
+else
+    if [ -n "$COMMAND" ]; then
+        echo "ERROR: \`$COMMAND\` is invalid option."
+        echo
+    fi
+    echo "┌─────────────────────────────────────┐"
+    echo "│ Available options:                  │"
+    echo "│ - up                                │"
+    echo "│ - down                              │"
+    echo "│ - restart                           │"
+    echo "│ - shell                             │"
+    echo "│ - root-shell                        │"
+    echo "│ - composer                          │"
+    echo "│ - exec                              │"
+    echo "└─────────────────────────────────────┘"
+fi
