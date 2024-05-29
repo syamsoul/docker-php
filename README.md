@@ -42,7 +42,7 @@ You can try edit `./src/public/index.php` file and access `http://php.localhost`
 
 ##### Default accessible page
 - `http://php.localhost` (Homepage)
-- `http://php.localhost/about-us` (About Us page)
+- `http://php.localhost/about-us/` (About Us page)
 - `http://php.localhost/simple.php` (directly render php file)
 
 <br />
