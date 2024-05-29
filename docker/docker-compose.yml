@@ -4,7 +4,7 @@ services:
     expose:
       - 8080
     labels:
-      - traefik.http.routers.php.rule=Host(`php.localhost`)
+      - traefik.http.routers.php.rule=Host(`${APP_DOMAIN}`)
       - traefik.http.routers.php.entrypoints=web
       - traefik.http.routers.php.service=php-service
       - traefik.http.services.php-service.loadbalancer.server.port=8080
