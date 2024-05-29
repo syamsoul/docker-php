@@ -34,6 +34,11 @@ That's it, you can now access your PHP website by entering `http://php.localhost
 
 You can try edit `./src/public/index.php` file and access `http://php.localhost` to see the changes.
 
+#####Default accessible page
+- `http://php.localhost` (Homepage)
+- `http://php.localhost/about-us` (About Us page)
+- `http://php.localhost/simple.php` (directly render php file)
+
 ----
 
 ###Soul Command
