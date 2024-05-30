@@ -9,7 +9,7 @@ services:
       - traefik.http.routers.php.service=php-service
       - traefik.http.services.php-service.loadbalancer.server.port=8080
     volumes:
-      - ../src:/var/www/html
+      - ./src:/var/www/html
     networks:
       - main-net
   reverse-proxy:

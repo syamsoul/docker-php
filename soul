@@ -11,7 +11,7 @@ fi
 
 APP_SERVICE_NAME=www
 
-DOCKER_COMPOSE_FILE_PATH=./docker/docker-compose.yml
+DOCKER_COMPOSE_FILE_PATH=./docker-compose.yml
 ENV_FILE_PATH=./.env
 
 DOCKER_COMPOSE_CMD="sudo docker compose -f $DOCKER_COMPOSE_FILE_PATH --env-file=$ENV_FILE_PATH"
