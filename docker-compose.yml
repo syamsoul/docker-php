@@ -1,6 +1,9 @@
 services:
   www:
     image: serversideup/php:8.3-fpm-nginx-alpine
+    # restart: always 
+    # environment:
+    #   - PHP_OPCACHE_ENABLE=1
     expose:
       - 8080
     labels:
@@ -14,6 +17,7 @@ services:
       - main-net
   reverse-proxy:
     image: traefik:v3.0.0
+    # restart: always
     ports:
       - "80:80"
       # - "8080:8080"
