@@ -7,6 +7,7 @@ services:
     expose:
       - 8080
     labels:
+      - traefik.enable=true
       - traefik.http.routers.php.rule=Host(`${APP_DOMAIN}`)
       - traefik.http.routers.php.entrypoints=web
       - traefik.http.routers.php.service=php-service
@@ -23,6 +24,7 @@ services:
       # - "8080:8080"
     environment:
       - TRAEFIK_PROVIDERS_DOCKER=true
+      - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
       # - TRAEFIK_API_INSECURE=true
       - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
     volumes:
